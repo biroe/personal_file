@@ -13,10 +13,18 @@ struct ContentView: View {
         ZStack{//main
             Color(red: 150 / 255, green: 160 / 255, blue: 160 / 255)
                 .ignoresSafeArea()
-            HStack{//menu
-                Button(action: {
-                    self.animation()
-                }, label: {
+            VStack{//home
+                Spacer()
+                Text("Personal File")
+                    .font(.largeTitle)
+                    .fontWeight(.black)
+                    .foregroundColor(Color.black)
+                Spacer()
+                Text("text here")
+                    .padding(30.0)
+                    .border(Color.black, width: 10)
+                    .contentShape(Circle())
+                HStack{//menu
                     ZStack{//dial
                         Circle()
                             .frame(width: 180, height: 180)
@@ -27,35 +35,49 @@ struct ContentView: View {
                             .foregroundColor(Color.black)
                             .shadow(radius: 5)
                             .opacity(0.2)
-                        Image(systemName: isClicked ? "play.circle.fill" : "stop.circle.fill")
-                            .resizable()
-                            .frame(width: 70, height: 70, alignment: .center)
-                    }//ZStack end dial
-                    .rotationEffect(isClicked ? .degrees(0) : .degrees(180))
-                    .animation(.spring())
-                })
-                //.offset(x: -70)
-                VStack(spacing: 20) {
-                    ForEach(0..<100) { index in
                         Button(action: {
-                            //self.animation()
+                            self.animationlock()
                         }, label: {
-                            Text( "Personal Informat")
-                                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                                .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
-                                .lineLimit(/*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                                .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.gray/*@END_MENU_TOKEN@*/, alignment: .leading)
-                                .rotationEffect(.degrees(10))
-                                //.blur(radius: isClicked ? 0 : /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+                            Image(systemName: isClicked ? "play.circle.fill" : "stop.circle.fill")
+                                .resizable()
+                                .frame(width: 70, height: 70, alignment: .center)
+                                .rotationEffect(isClicked ? .degrees(0) : .degrees(180))
                         })
-                    }
-                }
-                .padding()
-                //.offset(x: -70)
-            }//HStack end menu
-        }//ZStack end main
+                       
+                    }//ZStack end dial
+                    .animation(.spring())
+                    
+                    //.offset(x: -70)
+                    
+                    VStack{
+                        ScrollView(.vertical){
+                            ForEach(0..<20) { index in
+                                Button(action: {
+                                    //self.animationblur()
+                                }, label: {
+                                    Text( "personal")
+                                        .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                                        .foregroundColor(/*@START_MENU_TOKEN@*/.white/*@END_MENU_TOKEN@*/)
+                                        .lineLimit(/*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                                        .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.gray/*@END_MENU_TOKEN@*/, alignment: .leading)
+                                        .rotationEffect(.degrees(0))
+                                        .padding(.vertical, 5.0)
+                                    //.blur(radius: isClicked ? 0 : /*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+                                        .animation(.default)
+                                })
+                            }
+                        }
+                    }//end personal button
+                    .padding()
+                }//end menu
+                
+            }//end home
+        }//end main
     }
-    func animation() {
+    func animationlock() {
+        self.isClicked.toggle()
+    }
+    func animationblur() {
         self.isClicked.toggle()
     }
 }
